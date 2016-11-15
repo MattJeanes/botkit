@@ -418,10 +418,10 @@ declare module botkit {
         tick(): never;
     }
 
-    function core(Configuration): Controller
-    function slackbot(Configuration): Controller
-    function facebookbot(Configuration): Controller
-    function twilioipmbot(Configuration): Controller
-    function botframeworkbot(Configuration): Controller
-    function consolebot(Configuration): Controller
+    function core(config: Configuration): Controller
+    function slackbot(config: Configuration): Controller
+    function facebookbot(config: Configuration): Controller
+    function twilioipmbot(config: Configuration): Controller
+    function botframeworkbot(config: Configuration): Controller
+    function consolebot(config: Configuration): Controller
 }
