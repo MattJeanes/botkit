@@ -119,6 +119,7 @@ declare module botkit {
         text: string;
         user: string;
         ts: string;
+        match?: Array<string>;
     }
     interface User {
         id: string;
@@ -162,7 +163,7 @@ declare module botkit {
         redirectUri?: string;
         scopes?: string[];
     }
-    type ApiMethod = (data: any, cb: (err: string | Error, response: any) => void) => never;
+    type ApiMethod = (data: any, cb?: (err: string | Error, response: any) => void) => never;
     interface WebAPI {
         api_url: string;
         auth: {
@@ -361,7 +362,8 @@ declare module botkit {
         repeat(): never;
         silentRepeat(): never;
         addQuestion(message: Message, cb: Function, capture_options, thread): never;
-        ask(message: Message, cb: Function, capture_options): never;
+        ask(message: string | Message, cb: (response: Message, convo: Conversation) => void, capture_options?): never;
+        ask(message: string | Message, cbarray: Array<{ default?: boolean, pattern?: RegExp | string, callback: (response: Message, convo: Conversation) => void }>);
         addMessage(message: Message, thread): never;
         /**
          * how long should the bot wait while a user answers? 
@@ -380,7 +382,7 @@ declare module botkit {
         extractResponse(key: string): string;
         replaceAttachmentTokens(attachments: any[]): any[];
         replaceTokens(text: string): any;
-        stop(status): never;
+        stop(status?): never;
         /**
          * was this conversation successful?
          * return true if it was completed
@@ -415,4 +417,11 @@ declare module botkit {
         getResponsesBySubject(): any;
         tick(): never;
     }
+
+    function core(Configuration): Controller
+    function slackbot(Configuration): Controller
+    function facebookbot(Configuration): Controller
+    function twilioipmbot(Configuration): Controller
+    function botframeworkbot(Configuration): Controller
+    function consolebot(Configuration): Controller
 }
